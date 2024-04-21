@@ -33,18 +33,18 @@ while target[-1] == "\\" or target[-1] == "/":
 	target = target[0:-1]
 
 if not os.path.exists(directory):
-	print "DIRECTORY " + directory + " DOESN'T EXIST"
+	print( "DIRECTORY " + directory + " DOESN'T EXIST")
 	sys.exit()
 
 if not os.path.exists(target):
-	print "CREATING " + target
+	print ("CREATING " + target)
 	os.makedirs(target)
 
-print "PROCESSING: " + directory
+print ("PROCESSING: " + directory)
 
 # Sorting files
 if sort:
-	print "SORTING"
+	print ("SORTING")
 	for root, subdirs, files in os.walk(directory):
 		for file in files:
 			if sort == "ALPHA":
@@ -58,9 +58,9 @@ if sort:
 			src = root + "/" + file
 			dst = target + "/" + name
 
-			print "PROCESSING " + src
+			print ("PROCESSING " + src)
 
-			if not directory_files.has_key(name):
+			if name not in directory_files:
 				directory_files[name] = 0
 
 			directory_files[name] = directory_files[name] + 1
@@ -70,28 +70,28 @@ if sort:
 				dst = dst + "(" + str(n) + ")"
 
 			if not os.path.exists(dst):
-				print "CREATING " + dst
+				print ("CREATING " + dst)
 				os.makedirs(dst)
 
 			if move:
-				print "MOVING " + src + " TO " + dst
+				print ("MOVING " + src + " TO " + dst)
 				shutil.move(src, dst)
 			else:
-				print "COPYING " + src + " TO " + dst
+				print ("COPYING " + src + " TO " + dst)
 				shutil.copy2(src, dst)
 		break
 elif expand:
-	print "EXPANDING"
+	print ("EXPANDING")
 	for root, subdirs, files in os.walk(directory):
 		for file in files:
 			src = root + "/" + file
 			dst = target + "/" + file
 
-			print "PROCESSING " + src
+			print ("PROCESSING " + src)
 
 			if move:
-				print "MOVING " + src + " TO " + dst
+				print ("MOVING " + src + " TO " + dst)
 				shutil.move(src, dst)
 			else:
-				print "COPYING " + src + " TO " + dst
+				print ("COPYING " + src + " TO " + dst)
 				shutil.copy2(src, dst)
